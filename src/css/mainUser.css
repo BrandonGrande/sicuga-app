@@ -1,0 +1,64 @@
+/*Estilos pertenecientes a la pagina principal del usuario (Profesor y Alumno)*/
+* {
+    font-family: 'Acme', sans-serif;
+}
+button, input {
+    font-family: 'Poppins', sans-serif;
+}
+
+#barraNav a {
+    color: #fff;
+ 
+}
+#barraNav li:hover {
+    background: #4E94F9;
+}
+
+.header-p {
+    border-right: 1px solid #ddd;
+    margin-bottom: -20px;
+    margin-top: 20px;
+}
+.descripcion-p {
+    background: #fbfbfb;
+}
+.header-p, .descripcion-p {
+    padding: 20px;
+    text-align: center;
+}
+.header-p a {
+    position: relative;
+    display: block;
+}
+.header-p img {
+    border-radius: 50%;
+    box-shadow: 0 0 0 8px rgba(0, 0, 0, .06);
+    margin: 15px auto;
+    transition: .2s;
+    height: 100px;
+    display: block;
+}
+.header-p a:hover img {
+    box-shadow: 0 0 0 12px rgba(0, 0, 0, .1);
+}
+.header-p h2 {
+    color: #f0522a;
+    margin-bottom: -10px;
+    font-size: 26px;
+}
+.header-p h4 {
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+.descripcion-p h5 {
+    text-align: left;
+    border: 1px solid #ddd;
+    background: #E6EAF0;
+}
+#tituloClase {
+    font-family: 'Poppins', sans-serif;
+    font-size: 19px;
+}
+#textG h1 {
+    color: #C48A0C;
+}
