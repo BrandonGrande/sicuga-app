@@ -1,5 +1,5 @@
 import React,{useContext} from "react";
-import {QuestionContext} from '../components/QuestionForm';
+import {QuestionContext} from './QuestionForm';
 
 export const BarTime = () =>{
 

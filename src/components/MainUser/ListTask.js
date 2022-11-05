@@ -9,7 +9,7 @@ export const ListTask = () =>{
             </div>
             <div className="col-9">
             <div className="card">
-            <ul class="list-group list-group-flush" id="itemsPRCP">
+            <ul className="list-group list-group-flush" id="itemsPRCP">
             </ul>
             </div>
             </div>

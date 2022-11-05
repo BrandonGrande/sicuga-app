@@ -1,9 +1,9 @@
 import React,{useContext} from "react";
-import '../css/filePhoto.css'
-import {QuestionContext} from '../components/QuestionForm';
+import '../../css/filePhoto.css'
+import {QuestionContext} from './QuestionForm';
 
 export const FilePhoto = () =>{
-
+  
     const {parametric,actualizarParametric} = useContext(QuestionContext);
 
     const changeImage = (e) => {

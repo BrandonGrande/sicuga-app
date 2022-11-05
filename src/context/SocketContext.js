@@ -12,7 +12,7 @@ export const SocketProvider = ({ children }) => {
 
     const { socket, online, conectarSocket,desconectarSocket } = useSocket('http://localhost:8080');
     const {auth} = useContext(AuthContext);
-    const {chatState,dispatch} = useContext(ChatContext);
+    const {dispatch} = useContext(ChatContext);
 
     useEffect(() => {
         if(auth.logged){

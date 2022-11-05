@@ -12,14 +12,14 @@
   margin: 0;
   padding: 0;
   width: 200px;
-  height: 192px;
+  height: 193px;
   outline: none;
   opacity: 0;
   cursor: pointer;
 }
 
 .image-upload-wrap {
-  width: 200px;
+  width: 208px;
   height: 200px;
   border: 4px solid #d0d7de;
   margin-left: 10px;

@@ -22,7 +22,7 @@ export const useSocket = ( serverPath ) => {
     
         setSocket(socketTemp);
 
-    },[]);
+    },[serverPath]);
    
     const desconectarSocket = useCallback(()=>{
         socket?.disconnect();

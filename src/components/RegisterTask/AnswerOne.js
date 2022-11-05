@@ -1,23 +1,30 @@
 import React,{useContext} from "react";
 import { GetBoton } from "./GetBoton";
-import {QuestionContext} from '../components/QuestionForm';
+import {QuestionContext} from './QuestionForm';
 
 export const AnswerOne = () =>{
-
 
     const {parametric,actualizarParametric} = useContext(QuestionContext);
 
     const actualizarValorBtn1 = () => {
-        if (parametric.answerOne === 0) 
+        if (parametric.valAnswerOne === 0) 
             actualizarParametric({
                 ...parametric,
-                answerOne:1
+                valAnswerOne:1
             });
         else
             actualizarParametric({
                 ...parametric,
-                answerOne:0
+                valAnswerOne:0
             });
+    }
+    
+    const actualizarInputBtn1 = ({target}) =>{
+        const {value} = target;
+        actualizarParametric({
+                ...parametric,
+                inAnswerOne:value
+            })
     }
 
     return(
@@ -25,10 +32,10 @@ export const AnswerOne = () =>{
         <div className="input-group mb-3">
         <div className="input-group-prepend">
         <button className="btn btn-danger" onClick={actualizarValorBtn1}> 
-            <GetBoton btn={parametric.answerOne}/>
+            <GetBoton btn={parametric.valAnswerOne}/>
         </button>
         </div>
-        <input id="op1" className="form-control"  type="text" name="opcion1" placeholder="Opcion1"/>
+        <input className="form-control"  type="text" value={parametric.inAnswerOne} onChange={actualizarInputBtn1} placeholder="Opcion1"/>
         </div>
         </div>
     )

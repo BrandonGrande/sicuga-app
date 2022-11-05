@@ -29,8 +29,6 @@ export const RegisterPage = () => {
         if (msg!==true){
 			Swal.fire('Error',msg,'error');
 		}
-
-
 	}
 
     const todoOk= ()=>{
