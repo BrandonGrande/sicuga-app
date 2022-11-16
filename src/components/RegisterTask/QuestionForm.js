@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useContext,useEffect } from "react";
 import { FilePhoto } from './FilePhoto';
 import { InputTask } from './InputTask';
 import { BarPoints } from './BarPoints';
@@ -8,11 +8,24 @@ import { AnswerTwo } from './AnswerTwo';
 import { AnswerThree } from './AnswerThree';
 import { AnswerFour } from './AnswerFour';
 import { ParametricComponent } from "./ParametricComponent";
+import {SocketContext} from '../../context/SocketContext';
+import {AuthContext} from '../../auth/AuthContext';
 import { v4 as uuidv4 } from 'uuid';
 
 export const QuestionContext = React.createContext();
 
 export const QuestionForm = () => {
+
+    const [idQuest] = useState(uuidv4());
+    const {auth} = useContext(AuthContext);
+    const {socket} = useContext(SocketContext);
+
+    useEffect(() => {
+        socket?.on('questionario',(mensaje)=>{
+            console.log(mensaje)  
+        });
+        
+    }, [socket])
 
     const [topId,setTopId] = useState(uuidv4());
 
@@ -73,7 +86,6 @@ export const QuestionForm = () => {
 
 
     const actualizarParametric = (value) =>{
-        console.log(topId)
         setParametric(
             value
         );
@@ -93,6 +105,13 @@ export const QuestionForm = () => {
             return e;
         });
         setFilaParam(nuevaFilaParam);
+        socket.emit('questionario',
+            {
+                idQuest:idQuest,
+                idUsuario:auth.uid,
+                parametric:value
+            }
+        );
     }
 
     const generarNuevoParam = () => {
