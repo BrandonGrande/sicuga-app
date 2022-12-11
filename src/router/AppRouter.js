@@ -1,6 +1,5 @@
 import React,{useContext,useEffect} from 'react';
 import { MainUser } from '../pages/MainUser';
-import { RegisterTask } from '../pages/RegisterTask';
 import {AuthRouter} from './AuthRouter';
 import {PublicRoute} from './PublicRoute';
 import {
@@ -10,6 +9,7 @@ import {
   } from 'react-router-dom';
 import { AuthContext } from '../auth/AuthContext';
 import {PrivateRoute} from './PrivateRoute';
+import { QuestionForm } from '../components/RegisterTask/QuestionForm';
 
 export const AppRouter = () => {
 
@@ -30,7 +30,7 @@ export const AppRouter = () => {
                 <Switch>
                     <PublicRoute isAuthenticated={auth.logged} path="/auth" component={AuthRouter}/>             
                     <PrivateRoute isAuthenticated={auth.logged} exact path="/"component={MainUser}/>
-                    <PrivateRoute isAuthenticated={auth.logged} exact path="/registerTask"component={RegisterTask}/>
+                    <PrivateRoute isAuthenticated={auth.logged} exact path="/questionForm/:idQuest"component={QuestionForm}/>
                     <Redirect to="/"/>     
                 </Switch>
             </div>

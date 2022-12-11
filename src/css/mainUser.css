@@ -11,7 +11,7 @@ button, input {
  
 }
 #barraNav li:hover {
-    background: #4E94F9;
+    background:#f75858;
 }
 
 .header-p {
@@ -30,17 +30,7 @@ button, input {
     position: relative;
     display: block;
 }
-.header-p img {
-    border-radius: 50%;
-    box-shadow: 0 0 0 8px rgba(0, 0, 0, .06);
-    margin: 15px auto;
-    transition: .2s;
-    height: 100px;
-    display: block;
-}
-.header-p a:hover img {
-    box-shadow: 0 0 0 12px rgba(0, 0, 0, .1);
-}
+
 .header-p h2 {
     color: #f0522a;
     margin-bottom: -10px;

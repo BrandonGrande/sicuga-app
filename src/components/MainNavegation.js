@@ -6,7 +6,7 @@ export const MainNavegation = () => {
     const {logout} = useContext(AuthContext);
     return (
         <div>
-            <nav className="navbar navbar-expand-lg navbar-dark bg-primary static-top" id="barraNav">
+            <nav className="navbar navbar-expand-lg navbar-dark bg-danger static-top" id="barraNav">
                 <div className="container">
                 <button className="navbar-brand"></button>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">

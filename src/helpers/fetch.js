@@ -18,7 +18,6 @@ export const fetchSinToken = async(endPoint,data,method = 'GET') =>{
 }
 
 export const fetchConToken = async(endPoint,data,method = 'GET') =>{
-
     const url= `${baseUrl}/${endPoint}`;
     const token = localStorage.getItem('token') || '';
     if (method ==='GET'){
@@ -32,11 +31,11 @@ export const fetchConToken = async(endPoint,data,method = 'GET') =>{
         const resp = await fetch(url,{
             method,
             headers:{
-                'Content-type':'application/json'
+                'Content-type':'application/json',
+                'x-token':token
             },
-            body:JSON.stringify(data)
+            body: data !==null ? JSON.stringify(data) : null
         })
-        
         return await resp.json();
     }
 

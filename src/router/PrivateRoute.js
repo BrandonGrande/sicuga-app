@@ -6,12 +6,14 @@ import {
   
 export const PrivateRoute = ({
     isAuthenticated,
+    path,
     component:Component
 }) => {
     return (        
-        <Route 
+        <Route
+            exact path={path} 
             component={(props) =>{
-                return(isAuthenticated) ? <Component {...props}/>
+                return(isAuthenticated) ? <Component  {...props}/>
                 : <Redirect to="/auth/login"/>
             }}
         />

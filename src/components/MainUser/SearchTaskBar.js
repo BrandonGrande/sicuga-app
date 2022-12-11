@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-
+import { ListTask } from "./ListTask";
+import { v4 as uuidv4 } from 'uuid';
 export const SearchTaskBar = () =>{
 
     return (
@@ -25,14 +26,15 @@ export const SearchTaskBar = () =>{
         <table className="table table-bordered table-condensed bg-white">
         <thead>
         <tr id="tituloClase">
-          <th>Mis cuestionarios<Link to="/registerTask" className="btn float-right btn-success" 
+          <th>Mis cuestionarios<Link to={`/questionForm/${uuidv4()}`}  className="btn float-right btn-success" 
             type="button">Crear nuevo</Link></th>
         </tr>
         </thead>
         <tbody>
         <tr>
         <td>
-        <div className="container bg-white"  id="seccionCuestionarios">
+        <div className="container bg-white"  >
+        <ListTask/>
         </div>
         </td>
         </tr>
