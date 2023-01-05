@@ -51,7 +51,7 @@ export const LoginPage = () => {
 		const msg = await login(email,password); 
 		
 		if (msg!==true){
-			Swal.fire('Error',msg,'error');
+			Swal.fire('Error','Error when trying to enter','error');
 		}
 
 	}

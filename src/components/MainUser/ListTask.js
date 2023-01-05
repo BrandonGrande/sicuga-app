@@ -1,22 +1,22 @@
-import React,{useEffect,useContext,useState,useCallback} from "react";
+import React,{useEffect,useState,useCallback} from "react";
 import imgQuest from '../../img/books.png'
 import { Link } from "react-router-dom";
-import {AuthContext} from '../../auth/AuthContext';
 import {fetchConToken} from '../../helpers/fetch';
 export const ListTask = () =>{
 
     const [ini,setIni] = useState(false);
     const [cuestionarios,setcuestionarios] = useState([]);
-    const {auth} = useContext(AuthContext);
-
 
     const consultarCuestionarios = useCallback(async() =>{
-        const cuestionarios = await fetchConToken(`cuestionario/byuser/${auth.uid}`);
-        setcuestionarios(cuestionarios?.cuestionarios);  
-    },[auth])
+        const resp = await fetchConToken('quiz/listAllQuiz',null,"GET");
+        if (resp.ok){
+            const cuestionarios = await resp.json();
+            setcuestionarios(cuestionarios); 
+        } 
+    },[])
 
     const eliminarCuestionario = async (id) =>{
-        const resp = await fetchConToken(`cuestionario/${id}`,null,'DELETE');
+        const resp = await fetchConToken(`quiz/${id}`,null,'DELETE');
         if(resp.ok){
             consultarCuestionarios();
         } 
@@ -35,7 +35,7 @@ export const ListTask = () =>{
         <div className="card">
                  {
                     cuestionarios.map((e)=>(
-                        <div className="card-body" key={e._id}>
+                        <div className="card-body" key={e.id}>
                         <div className="row">
                             <div className="col">
                                 <div className="row">
@@ -43,10 +43,10 @@ export const ListTask = () =>{
                                         <img src={imgQuest} alt="img" className="img-thumbnail"/>
                                     </div>
                                     <div className="col">
-                                        <Link to={`/questionForm/${e._id}`}  className="h5">
-                                        {e.nombre}
+                                        <Link to={`/questionForm/${e.id}`}  className="h5">
+                                        {e.name}
                                         </Link>
-                                        <h6 className="h6">{e.descripcion}</h6>
+                                        <h6 className="h6">{e.description}</h6>
                                         <p className="p">{e.createdAt}</p>
                                     </div>
                                 </div>
@@ -56,7 +56,7 @@ export const ListTask = () =>{
                                     </button>
                                     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <button className="dropdown-item" onClick={()=>{
-                                            eliminarCuestionario(e._id);
+                                            eliminarCuestionario(e.id);
                                         }}>Eliminar</button>
                                       </div>
                             </div>

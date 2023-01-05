@@ -13,34 +13,36 @@ const initialState = {
 export const AuthProvider = ({children}) =>{
     const [auth, setAuth] = useState(initialState);
     const login = async(email,password)=>{
-        const resp = await fetchSinToken('login',{email,password},'POST');
+        const resp = await fetchSinToken('auth/login',{email,password},'POST');
         if (resp.ok){
-            localStorage.setItem('token',resp.token);
+            const jsonMsg = await resp.json();
+            localStorage.setItem('token', jsonMsg.token);
             setAuth({
-                uid:resp.id,
+                uid:jsonMsg.id,
                 checking:false,
                 logged:true,
-                name:resp.nombre,
-                email:resp.email
+                name:jsonMsg.name,
+                email:jsonMsg.email
             })
             return true;
         }   
-        return resp.msg;
+        return resp.ok;
     };
-    const register = async(nombre,email,password)=>{
-        const resp = await fetchSinToken('login/new',{nombre,email,password},'POST');
+    const register = async(nombre,email,password,enabled)=>{
+        const resp = await fetchSinToken('auth/register',{nombre,email,password,enabled},'POST');
         if (resp.ok){
-            localStorage.setItem('token',resp.token);
+            const jsonMsg = await resp.json();
+            localStorage.setItem('token',jsonMsg.token);
             setAuth({
-                uid:resp.id,
+                uid:jsonMsg.id,
                 checking:false,
                 logged:true,
-                name:resp.nombre,
-                email:resp.email
+                name:jsonMsg.name,
+                email:jsonMsg.email
             })
             return true;
         }   
-        return resp.msg;
+        return resp.ok;
     };
     const verificaToken = useCallback( async () => {
         const token = localStorage.getItem('token');
@@ -54,15 +56,16 @@ export const AuthProvider = ({children}) =>{
             })
             return false;
         }
-        const resp = await fetchConToken('login/renew');
+        const resp = await fetchConToken('auth/renew');
         if (resp.ok){
-            localStorage.setItem('token',resp.token);
+            const jsonMsg = await resp.json();
+            localStorage.setItem('token',jsonMsg.token);
             setAuth({
-                uid:resp.id,
+                uid:jsonMsg.id,
                 checking:false,
                 logged:true,
-                name:resp.nombre,
-                email:resp.email
+                name:jsonMsg.name,
+                email:jsonMsg.email
             })
             return true;
         }else{

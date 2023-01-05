@@ -4,7 +4,7 @@ export const fetchSinToken = async(endPoint,data,method = 'GET') =>{
     const url= `${baseUrl}/${endPoint}`;
     if (method ==='GET'){
         const resp = await fetch(url);
-        return await resp.json();
+        return resp;
     }else{
         const resp = await fetch(url,{
             method,
@@ -13,7 +13,7 @@ export const fetchSinToken = async(endPoint,data,method = 'GET') =>{
             },
             body:JSON.stringify(data)
         })
-        return await resp.json();
+        return resp;
     }
 }
 
@@ -21,22 +21,23 @@ export const fetchConToken = async(endPoint,data,method = 'GET') =>{
     const url= `${baseUrl}/${endPoint}`;
     const token = localStorage.getItem('token') || '';
     if (method ==='GET'){
-        const resp = await fetch(url,{ 
+        const resp = await fetch(url,{
+            method,
             headers:{
-                'x-token':token
+                'JwtTokenProvider':'Bearer ' + token
             }
         });
-        return await resp.json();
+        return resp;
     }else{
         const resp = await fetch(url,{
             method,
             headers:{
                 'Content-type':'application/json',
-                'x-token':token
+                'JwtTokenProvider':'Bearer ' + token
             },
             body: data !==null ? JSON.stringify(data) : null
-        })
-        return await resp.json();
+        });
+        return resp;
     }
 
 }

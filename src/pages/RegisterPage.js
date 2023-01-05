@@ -25,7 +25,7 @@ export const RegisterPage = () => {
 	const onSubmit = async(e) =>{
 		e.preventDefault();
 		const {nombre,email,password}  = form;
-		const msg = await register(nombre,email,password);        
+		const msg = await register(nombre,email,password,true);        
         if (msg!==true){
 			Swal.fire('Error',msg,'error');
 		}

@@ -1,4 +1,4 @@
-import React, { useState,useContext,useEffect,useCallback} from "react";
+import React, { useState,useEffect,useCallback} from "react";
 import { useParams } from "react-router-dom";
 import { faFloppyDisk,faGear } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,7 +15,6 @@ import { AnswerTwo } from './AnswerTwo';
 import { AnswerThree } from './AnswerThree';
 import { AnswerFour } from './AnswerFour';
 import { ParametricComponent } from "./ParametricComponent";
-import {AuthContext} from '../../auth/AuthContext';
 import '../../css/registerTask.css';
 
 export const QuestionContext = React.createContext();
@@ -23,7 +22,6 @@ export const QuestionContext = React.createContext();
 export const QuestionForm = () => {
    
     const {idQuest} = useParams();
-    const {auth} = useContext(AuthContext);
     const [ini,setIni] = useState(false);
     const [topId,setTopId] = useState(uuidv4());
 
@@ -165,17 +163,15 @@ export const QuestionForm = () => {
             return e;
         });
     
-        const {ok} = await fetchConToken(
-            'cuestionario',
+        const resp = await fetchConToken(
+            'quiz/registerQuiz',
             {
-                idCuest:idQuest,
-                idUsuario:auth.uid,
-                nombre:formQuest.nombre,
-                descripcion:formQuest.descripcion,
-                parametric:elementFila},
+                id:idQuest,
+                name:formQuest.nombre,
+                description:formQuest.descripcion,
+                listParam:elementFila},
             'POST');
-        
-        if(ok){
+        if(resp.ok){
             Swal.fire({
                 icon: 'success',
                 title: 'El cuestionario ha sido guardado con éxito.',
@@ -183,7 +179,7 @@ export const QuestionForm = () => {
                 timer: 1500
               });
         }
-    },[idQuest,auth,filaParam,formQuest])
+    },[idQuest,filaParam,formQuest])
 
     const guardarCuestionarioConValidacion = async()=>{
         if(formQuest.nombre === null || formQuest.nombre === ''){
@@ -200,10 +196,12 @@ export const QuestionForm = () => {
     useEffect(()=> {
         if(!ini){        
             (async function (){
-            const resp = await fetchConToken(`cuestionario/${idQuest}`);
+            const resp = await fetchConToken(`quiz/${idQuest}`);
                 if(resp.ok){
-                    const respFilaParam = resp.cuestionario.filaParam;
-                    const {nombre,descripcion} = resp.cuestionario;
+                    const jsonCuestionario = await resp.json();
+
+                    const respFilaParam = jsonCuestionario.listParam;
+                    const {name,description} = jsonCuestionario;
                     var filaAux = [];
                     respFilaParam.map( (e)=>{
                         filaAux.push(
@@ -229,8 +227,8 @@ export const QuestionForm = () => {
                         return e;
                     });
                     setFormQuest({
-                        nombre:nombre,
-                        descripcion:descripcion
+                        nombre:name,
+                        descripcion:description
                     });
                     setFilaParam(filaAux);
                     setTopId('')
