@@ -15,13 +15,13 @@ export const MainNavegation = () => {
                 <div className="collapse navbar-collapse" id="navbarResponsive">
                     <ul className="navbar-nav ml-auto">
                     <li className="nav-item active">
-                        <Link to="/" className="nav-link">Inicio
+                        <Link to="/" className="nav-link">Home
                         </Link>
                     </li>
                     <li className="nav-item">
                         <button className="nav-link"
                             onClick={logout}
-                        >Salir</button>
+                        >Go out</button>
                     </li>
                     </ul>
                 </div>

@@ -1,24 +1,28 @@
-import React,{useEffect,useState,useCallback} from "react";
+import React,{useEffect,useState,useContext,useCallback} from "react";
+import {Link} from "react-router-dom";
 import imgQuest from '../../img/books.png'
-import { Link } from "react-router-dom";
-import {fetchConToken} from '../../helpers/fetch';
+import {fetchWithToken} from '../../helpers/fetch';
+import {AuthContext} from '../../auth/AuthContext';
+
 export const ListTask = () =>{
 
     const [ini,setIni] = useState(false);
-    const [cuestionarios,setcuestionarios] = useState([]);
+    const [quiz,setQuiz] = useState([]);
+    const {auth} = useContext(AuthContext);
 
-    const consultarCuestionarios = useCallback(async() =>{
-        const resp = await fetchConToken('quiz/listAllQuiz',null,"GET");
+    const getAllQuiz = useCallback(async() =>{
+        const resp = await fetchWithToken(`quiz/listAll/${auth.id}`,null,'GET');
+        
         if (resp.ok){
-            const cuestionarios = await resp.json();
-            setcuestionarios(cuestionarios); 
+            const quiz = await resp.json();
+            setQuiz(quiz); 
         } 
-    },[])
+    },[auth])
 
-    const eliminarCuestionario = async (id) =>{
-        const resp = await fetchConToken(`quiz/${id}`,null,'DELETE');
+    const removeQuiz = async (id) =>{
+        const resp = await fetchWithToken(`quiz/${id}`,null,'DELETE');
         if(resp.ok){
-            consultarCuestionarios();
+            getAllQuiz();
         } 
     }
 
@@ -26,15 +30,15 @@ export const ListTask = () =>{
         if(!ini){        
             setIni(true);
             (async function (){
-                consultarCuestionarios();  
+                getAllQuiz();  
             })();
         }
-    },[ini,consultarCuestionarios]);
+    },[ini,getAllQuiz]);
 
     return (
         <div className="card">
                  {
-                    cuestionarios.map((e)=>(
+                    quiz.map((e)=>(
                         <div className="card-body" key={e.id}>
                         <div className="row">
                             <div className="col">
@@ -47,7 +51,9 @@ export const ListTask = () =>{
                                         {e.name}
                                         </Link>
                                         <h6 className="h6">{e.description}</h6>
-                                        <p className="p">{e.createdAt}</p>
+                                        <p className="p">{
+                                            e.updatedAt
+                                        }</p>
                                     </div>
                                 </div>
                             </div>
@@ -56,7 +62,7 @@ export const ListTask = () =>{
                                     </button>
                                     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <button className="dropdown-item" onClick={()=>{
-                                            eliminarCuestionario(e.id);
+                                            removeQuiz(e.id);
                                         }}>Eliminar</button>
                                       </div>
                             </div>

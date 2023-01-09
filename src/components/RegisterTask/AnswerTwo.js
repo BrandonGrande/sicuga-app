@@ -4,38 +4,38 @@ import {QuestionContext} from './QuestionForm';
 
 export const AnswerTwo = ()=> {
 
-    const {parametric,actualizarParametric} = useContext(QuestionContext);
+    const {parametric,updateParametric} = useContext(QuestionContext);
 
-    const actualizarValorBtn2 = () => {
+    const setValueBtn2 = () => {
         if (parametric.valAnswerTwo === 0) 
-            actualizarParametric({
+            updateParametric({
                 ...parametric,
                 valAnswerTwo:1
             });
         else
-            actualizarParametric({
+            updateParametric({
                 ...parametric,
                 valAnswerTwo:0
             });
     }
 
-    const actualizarInputBtn2 = ({target}) =>{
+    const setInputBtn2 = ({target}) =>{
         const {value} = target;
-        actualizarParametric({
-                ...parametric,
-                inAnswerTwo:value
-            })
+        updateParametric({
+            ...parametric,
+            inAnswerTwo:value
+        })
     }
 
     return(
         <div className="col">
         <div className="input-group mb-3">
         <div className="input-group-prepend">
-        <button className="btn btn-primary" onClick={actualizarValorBtn2}> 
+        <button className="btn btn-primary" onClick={setValueBtn2}> 
             <GetBoton btn={parametric.valAnswerTwo}/>
         </button>
         </div>
-        <input type="text" placeholder="Opcion2" className="form-control" value={parametric.inAnswerTwo} onChange={actualizarInputBtn2}/>
+        <input type="text" placeholder="Option2" className="form-control" value={parametric.inAnswerTwo} onChange={setInputBtn2}/>
         </div>
         </div>
     ) 

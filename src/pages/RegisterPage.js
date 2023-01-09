@@ -86,7 +86,7 @@ export const RegisterPage = () => {
             <div className="col text-right">
 
                    <Link  to="/auth/login" className="txt1">
-                    ¿Ya tienes cuenta?
+                    Do you have account?
                     </Link>                    
             </div>
         </div>
@@ -97,7 +97,7 @@ export const RegisterPage = () => {
             className="login100-form-btn"
             disabled={!todoOk()} 
             >
-                Crear cuenta
+                Create account
             </button>
         </div>
 

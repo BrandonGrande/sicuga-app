@@ -4,7 +4,7 @@ import {QuestionContext} from './QuestionForm';
 
 export const FilePhoto = () =>{
   
-    const {parametric,actualizarParametric} = useContext(QuestionContext);
+    const {parametric,updateParametric} = useContext(QuestionContext);
 
     const changeImage = (e) => {
       if (e.target.files[0] !== undefined) {
@@ -12,7 +12,7 @@ export const FilePhoto = () =>{
         reader.readAsDataURL(e.target.files[0]);
         reader.onload = (e) => {
           e.preventDefault();
-          actualizarParametric({
+          updateParametric({
               ...parametric,
               filePhoto:e.target.result
           });

@@ -1,9 +1,9 @@
 import {createContext,useState,useCallback} from 'react';
-import {fetchSinToken,fetchConToken} from '../helpers/fetch';
+import {fetchWithoutToken,fetchWithToken} from '../helpers/fetch';
 export const AuthContext = createContext();
 
 const initialState = {
-    uid:null,
+    id:null,
     checking:true,
     logged:false,
     name:null,
@@ -13,12 +13,12 @@ const initialState = {
 export const AuthProvider = ({children}) =>{
     const [auth, setAuth] = useState(initialState);
     const login = async(email,password)=>{
-        const resp = await fetchSinToken('auth/login',{email,password},'POST');
+        const resp = await fetchWithoutToken('auth/login',{email,password},'POST');
         if (resp.ok){
             const jsonMsg = await resp.json();
             localStorage.setItem('token', jsonMsg.token);
             setAuth({
-                uid:jsonMsg.id,
+                id:jsonMsg.id,
                 checking:false,
                 logged:true,
                 name:jsonMsg.name,
@@ -29,12 +29,12 @@ export const AuthProvider = ({children}) =>{
         return resp.ok;
     };
     const register = async(nombre,email,password,enabled)=>{
-        const resp = await fetchSinToken('auth/register',{nombre,email,password,enabled},'POST');
+        const resp = await fetchWithoutToken('auth/register',{nombre,email,password,enabled},'POST');
         if (resp.ok){
             const jsonMsg = await resp.json();
             localStorage.setItem('token',jsonMsg.token);
             setAuth({
-                uid:jsonMsg.id,
+                id:jsonMsg.id,
                 checking:false,
                 logged:true,
                 name:jsonMsg.name,
@@ -44,11 +44,11 @@ export const AuthProvider = ({children}) =>{
         }   
         return resp.ok;
     };
-    const verificaToken = useCallback( async () => {
+    const verifyToken = useCallback( async () => {
         const token = localStorage.getItem('token');
         if(!token){
            setAuth({
-                uid:null,
+                id:null,
                 checking:false,
                 logged:false,
                 name:null,
@@ -56,12 +56,12 @@ export const AuthProvider = ({children}) =>{
             })
             return false;
         }
-        const resp = await fetchConToken('auth/renew');
+        const resp = await fetchWithToken('auth/renew');
         if (resp.ok){
             const jsonMsg = await resp.json();
             localStorage.setItem('token',jsonMsg.token);
             setAuth({
-                uid:jsonMsg.id,
+                id:jsonMsg.id,
                 checking:false,
                 logged:true,
                 name:jsonMsg.name,
@@ -70,7 +70,7 @@ export const AuthProvider = ({children}) =>{
             return true;
         }else{
             setAuth({
-                uid:null,
+                id:null,
                 checking:false,
                 logged:false,
                 name:null,
@@ -92,7 +92,7 @@ export const AuthProvider = ({children}) =>{
             auth,
             login,
             register,
-            verificaToken,
+            verifyToken,
             logout
         }}>
             {children}

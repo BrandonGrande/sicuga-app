@@ -13,11 +13,11 @@ import { QuestionForm } from '../components/RegisterTask/QuestionForm';
 
 export const AppRouter = () => {
 
-    const {auth,verificaToken}= useContext(AuthContext)
+    const {auth,verifyToken}= useContext(AuthContext)
  
     useEffect(() => {
-        verificaToken();        
-    }, [verificaToken])
+        verifyToken();        
+    }, [verifyToken])
 
 
     return (

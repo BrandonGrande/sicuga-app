@@ -10,24 +10,18 @@ export const SearchTaskBar = () =>{
         <div className="col-lg-8 col-md-8 col-sm-8 col-xs-12">
         <div className="form-group">
         <div className="input-group">
-            <input type="text" className="form-control " name="searchText" placeholder="Buscar..." id="buscar"/>
+            <input type="text" className="form-control " name="searchText" placeholder="Search..."/>
         </div>
         </div>
         </div>
         </div>
-        <div className="col">
-                <div className="card my-4" id="contenedorResultados">
-                    <div className="card-body">
-                    <ul id="container"></ul>
-                    </div>
-                </div>
-        </div>
+
         <div className="table-responsive">
         <table className="table table-bordered table-condensed bg-white">
         <thead>
         <tr id="tituloClase">
-          <th>Mis cuestionarios<Link to={`/questionForm/${uuidv4()}`}  className="btn float-right btn-success" 
-            type="button">Crear nuevo</Link></th>
+          <th>My quizzes<Link to={`/questionForm/${uuidv4()}`}  className="btn float-right btn-success" 
+            type="button">New quiz</Link></th>
         </tr>
         </thead>
         <tbody>

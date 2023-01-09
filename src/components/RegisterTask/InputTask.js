@@ -3,11 +3,11 @@ import {QuestionContext} from './QuestionForm';
 
 export const InputTask = () => {
 
-    const {parametric,actualizarParametric} = useContext(QuestionContext);
+    const {parametric,updateParametric} = useContext(QuestionContext);
 
-    const actualizarPregunta = ({target}) =>{
+    const setQuestion = ({target}) =>{
         const {value} = target;
-        actualizarParametric({
+        updateParametric({
                 ...parametric,
                 inputTask:value
             })
@@ -20,10 +20,10 @@ export const InputTask = () => {
         <input 
             type="text" 
             className="form-control" 
-            placeholder="Pregunta..." 
-            id="pregunta"
+            placeholder="Question..." 
+            id="question"
             value={parametric.inputTask} 
-            onChange={actualizarPregunta}/>
+            onChange={setQuestion}/>
         </div>
         </div>
         </div>

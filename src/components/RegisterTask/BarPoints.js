@@ -3,11 +3,11 @@ import {QuestionContext} from './QuestionForm';
 
 export const BarPoints = () =>{
     
-    const {parametric,actualizarParametric} = useContext(QuestionContext);
+    const {parametric,updateParametric} = useContext(QuestionContext);
 
-    const actualizarBarra = ({target}) => {
+    const setBarra = ({target}) => {
         const {value} = target;
-        actualizarParametric({
+        updateParametric({
             ...parametric,
             barPoints:value
         });
@@ -16,10 +16,10 @@ export const BarPoints = () =>{
     return (
         <div className="col">
             <div className="row justify-content-center">
-                <h5 className="">Puntos: {parametric.barPoints}</h5>
+                <h5 className="">Points: {parametric.barPoints}</h5>
             </div>
             <div className="row justify-content-center mt-4">
-               <input type="range" value={parametric.barPoints}  min="0" max="200" autoComplete="off" id="input3" onChange={actualizarBarra}/>
+               <input type="range" value={parametric.barPoints}  min="0" max="200" autoComplete="off" id="input3" onChange={setBarra}/>
             </div>
         </div>
     )

@@ -3,11 +3,11 @@ import {QuestionContext} from './QuestionForm';
 
 export const BarTime = () =>{
 
-    const {parametric,actualizarParametric} = useContext(QuestionContext);
+    const {parametric,updateParametric} = useContext(QuestionContext);
 
-    const actualizarBarTime = ({target}) => {
+    const setBarTime = ({target}) => {
         const {value} = target;
-        actualizarParametric({
+        updateParametric({
             ...parametric,
             barTime:value
         });
@@ -18,8 +18,8 @@ export const BarTime = () =>{
         <div className="row justify-content-center">
         <div className="col-6">
         <div className="form-group">
-        <h5 className="mb-4 text-center">Tiempo(Seg)</h5>
-        <select className="form-control" id="selecTiempo" value={parametric.barTime} onChange={actualizarBarTime}>
+        <h5 className="mb-4 text-center">Time(Sec)</h5>
+        <select className="form-control" id="selecTiempo" value={parametric.barTime} onChange={setBarTime}>
         <option value="5">5</option>
         <option value="10">10</option>
         <option value="15">15</option>
